@@ -1,2 +1,2 @@
-# corda-aio
-Corda Starter Application Template
+# Framr
+UI Generator Framework for CordApps
