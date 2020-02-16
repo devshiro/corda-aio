@@ -1,0 +1,31 @@
+plugins {
+    id 'java'
+}
+
+sourceCompatibility = 1.8
+
+ext {
+    set('vaadinVersion', "14.1.17")
+}
+
+dependencies {
+    compile group: 'io.github.classgraph', name: 'classgraph', version: '4.8.62'
+    // https://mvnrepository.com/artifact/com.vaadin/vaadin
+    compile group: 'com.vaadin', name: 'vaadin', version: '14.1.17'
+
+    compileOnly "org.projectlombok:lombok:${LOMBOK_VERSION}"
+    annotationProcessor "org.projectlombok:lombok:${LOMBOK_VERSION}"
+
+    compile project(":framr-annotations")
+
+    testImplementation('org.junit.jupiter:junit-jupiter:5.6.0')
+    testCompile project(":demo:demo-corda-contracts")
+    testCompile("org.assertj:assertj-core:3.11.1")
+}
+
+test {
+    useJUnitPlatform()
+    testLogging {
+        events "passed", "skipped", "failed"
+    }
+}
