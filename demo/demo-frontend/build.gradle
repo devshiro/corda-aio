@@ -1,13 +1,23 @@
 plugins {
-    id 'org.springframework.boot' version '2.1.8.RELEASE'
+    id 'org.springframework.boot' version '2.1.6.RELEASE'
     id 'io.spring.dependency-management' version '1.0.8.RELEASE'
     id 'com.google.cloud.tools.jib' version '1.8.0'
     id 'java'
+    id 'idea'
+    id 'com.vaadin' version '0.5.0'
 }
 
 sourceCompatibility = 1.8
 
+repositories {
+    mavenCentral()
+    maven { url "https://maven.vaadin.com/vaadin-addons" }
+}
 
+dependencyManagement {
+    imports {
+        mavenBom "com.vaadin:vaadin-bom:14.1.17"    }
+}
 
 configurations {
     all*.exclude group: 'org.apache.logging.log4j', module: 'log4j-to-slf4j'
@@ -18,7 +28,12 @@ dependencies {
     compileOnly 'org.projectlombok:lombok:1.18.10'
     annotationProcessor 'org.projectlombok:lombok:1.18.10'
 
-    implementation 'com.vaadin:vaadin-spring-boot-starter'
+    implementation ('com.vaadin:vaadin-spring-boot-starter') {
+        ["com.vaadin.webjar", "org.webjars.bowergithub.insites",
+         "org.webjars.bowergithub.polymer", "org.webjars.bowergithub.polymerelements",
+         "org.webjars.bowergithub.vaadin", "org.webjars.bowergithub.webcomponents"]
+                .forEach { group -> exclude(group: group) }
+    }
     implementation 'org.hibernate:hibernate-core:5.3.15.Final'
     implementation("com.google.guava:guava:28.2-jre")
 
@@ -37,9 +52,8 @@ dependencies {
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
 }
 
-dependencyManagement {
-    imports {
-        mavenBom "com.vaadin:vaadin-bom:14.1.17"    }
+vaadin {
+    npmFolder = project.projectDir
 }
 
 jib {

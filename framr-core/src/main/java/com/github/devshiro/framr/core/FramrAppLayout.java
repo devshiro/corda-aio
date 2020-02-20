@@ -2,12 +2,13 @@ package com.github.devshiro.framr.core;
 
 import com.vaadin.flow.component.applayout.AppLayout;
 import com.vaadin.flow.component.button.Button;
+import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import com.vaadin.flow.component.tabs.Tab;
 import com.vaadin.flow.component.tabs.Tabs;
 
 public class FramrAppLayout extends AppLayout {
 
-    private final FramrClassCollector classCollector;
+    protected final FramrClassCollector classCollector;
 
     public FramrAppLayout() {
         classCollector = new FramrClassCollector(this);

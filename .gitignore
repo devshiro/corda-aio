@@ -14,6 +14,7 @@ webpack.generated.js
 webpack.config.js
 node_modules
 target
+node
 
 # Logs
 logs
