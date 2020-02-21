@@ -45,6 +45,9 @@ jar {
 }
 
 cordapp {
+    signing {
+        enabled false
+    }
     targetPlatformVersion 5
     minimumPlatformVersion 4
     workflow {
@@ -74,6 +77,9 @@ sourceSets {
 }
 
 dependencies {
+
+    compile project(":framr-annotations")
+
     testImplementation "junit:junit:${JUNIT_VERSION}"
     testImplementation "org.assertj:assertj-core:3.11.1"
 

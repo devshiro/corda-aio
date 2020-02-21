@@ -1,6 +1,7 @@
 package com.github.devshiro.framr.demo.cordapp.flow;
 
 import co.paralleluniverse.fibers.Suspendable;
+import com.github.devshiro.framr.annotation.FramrStartableFlow;
 import com.github.devshiro.framr.demo.cordapp.contract.DemoCommands;
 import com.github.devshiro.framr.demo.cordapp.state.ExampleState;
 import com.google.common.collect.ImmutableList;
@@ -20,7 +21,8 @@ public class ExampleFlow {
     @InitiatingFlow
     @StartableByRPC
     @AllArgsConstructor
-    public static class Initiator extends FlowLogic<SignedTransaction> {
+    @FramrStartableFlow(inputClass = Integer.class)
+    public static class ExampleFlowInitiator extends FlowLogic<SignedTransaction> {
 
         private final int value;
 

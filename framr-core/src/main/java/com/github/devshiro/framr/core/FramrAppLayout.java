@@ -13,6 +13,12 @@ public class FramrAppLayout extends AppLayout {
     public FramrAppLayout() {
         classCollector = new FramrClassCollector(this);
         setupNavBar();
+        setupDrawer();
+    }
+
+    private void setupDrawer() {
+        FlowSelector flowSelector = new FlowSelector(classCollector);
+        addToDrawer(flowSelector);
     }
 
     private void setupNavBar() {

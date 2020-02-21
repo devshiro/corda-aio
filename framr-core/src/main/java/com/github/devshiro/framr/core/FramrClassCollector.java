@@ -2,6 +2,7 @@ package com.github.devshiro.framr.core;
 
 import com.github.devshiro.framr.annotation.FramrApplication;
 import com.github.devshiro.framr.annotation.FramrEntity;
+import com.github.devshiro.framr.annotation.FramrStartableFlow;
 import io.github.classgraph.ClassGraph;
 import io.github.classgraph.ScanResult;
 import lombok.Getter;
@@ -18,13 +19,16 @@ public class FramrClassCollector {
     @Getter
     private final List<Class<?>> cachedEntityClasses;
 
+    @Getter
+    private final List<Class<?>> cachedFlowClasses;
+
     public FramrClassCollector(Object context) {
         searchPackageName = findSearchPackageNameFromAnnotation(context.getClass());
         classGraph = new ClassGraph()
-                .verbose()
                 .enableClassInfo()
                 .enableAnnotationInfo();
         cachedEntityClasses = getEntityClasses();
+        cachedFlowClasses = getFlowClasses();
     }
 
     public ScanResult scan(String whitelistPkg) {
@@ -38,6 +42,12 @@ public class FramrClassCollector {
     public List<Class<?>> getEntityClasses() {
         return scan()
                 .getClassesWithAnnotation(FramrEntity.class.getName())
+                .loadClasses();
+    }
+
+    public List<Class<?>> getFlowClasses() {
+        return scan()
+                .getClassesWithAnnotation(FramrStartableFlow.class.getName())
                 .loadClasses();
     }
 
