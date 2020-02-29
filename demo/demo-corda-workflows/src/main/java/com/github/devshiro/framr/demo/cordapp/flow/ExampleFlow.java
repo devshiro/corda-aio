@@ -21,8 +21,8 @@ public class ExampleFlow {
     @InitiatingFlow
     @StartableByRPC
     @AllArgsConstructor
-    @FramrStartableFlow(inputClass = Integer.class)
-    public static class ExampleFlowInitiator extends FlowLogic<SignedTransaction> {
+    @FramrStartableFlow(displayName = "Example Flow Initiator", inputClass = Integer.class)
+    public static class Initiator extends FlowLogic<SignedTransaction> {
 
         private final int value;
 

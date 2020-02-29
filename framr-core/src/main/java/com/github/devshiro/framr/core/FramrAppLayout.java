@@ -1,8 +1,8 @@
 package com.github.devshiro.framr.core;
 
+import com.github.devshiro.framr.core.flow.FlowSelector;
+import com.github.devshiro.framr.core.util.FramrClassCollector;
 import com.vaadin.flow.component.applayout.AppLayout;
-import com.vaadin.flow.component.button.Button;
-import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import com.vaadin.flow.component.tabs.Tab;
 import com.vaadin.flow.component.tabs.Tabs;
 

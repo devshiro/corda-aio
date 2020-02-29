@@ -19,7 +19,7 @@ public class MainView extends VerticalLayout {
             CordaRPCClient rpcClient = new CordaRPCClient(hostAndPort);
             CordaRPCConnection connection = rpcClient.use("user1", "test", cordaRPCConnection -> {
                 CordaRPCOps ops = cordaRPCConnection.getProxy();
-                ops.startFlowDynamic(ExampleFlow.ExampleFlowInitiator.class, Integer.valueOf(10));
+                ops.startFlowDynamic(ExampleFlow.Initiator.class, Integer.valueOf(10));
                 return cordaRPCConnection;
             });
             Notification.show("Button clicked");

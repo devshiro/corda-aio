@@ -1,5 +1,6 @@
-package com.github.devshiro.framr.core;
+package com.github.devshiro.framr.core.flow;
 
+import com.github.devshiro.framr.core.util.FramrClassCollector;
 import com.vaadin.flow.component.Component;
 import com.vaadin.flow.component.accordion.Accordion;
 import com.vaadin.flow.component.accordion.AccordionPanel;
@@ -29,8 +30,9 @@ public class FlowSelector extends Accordion {
 
     private void init() {
         classCollector.getCachedFlowClasses().forEach(klass -> {
+            FlowDetail flowDetail = FlowDetail.fromClass(klass);
             Button flowButton = new Button();
-            flowButton.setText(klass.getSimpleName());
+            flowButton.setText(flowDetail.getDisplayName());
             elements.add(flowButton);
         });
 

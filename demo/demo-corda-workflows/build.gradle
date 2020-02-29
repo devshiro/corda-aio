@@ -54,7 +54,7 @@ cordapp {
         name "Demo Workflow"
         vendor "DevShiro"
         licence "TBD"
-        versionId 1
+        versionId 2
     }
 }
 

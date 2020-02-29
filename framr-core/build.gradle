@@ -16,6 +16,8 @@ dependencies {
     compileOnly "org.projectlombok:lombok:${LOMBOK_VERSION}"
     annotationProcessor "org.projectlombok:lombok:${LOMBOK_VERSION}"
 
+    compile "net.corda:corda-rpc:${CORDA_VERSION}"
+
     compile project(":framr-annotations")
 
     testImplementation('org.junit.jupiter:junit-jupiter:5.6.0')
