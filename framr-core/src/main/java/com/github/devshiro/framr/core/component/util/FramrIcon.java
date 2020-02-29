@@ -1,4 +1,4 @@
-package com.github.devshiro.framr.core.component;
+package com.github.devshiro.framr.core.component.util;
 
 import com.vaadin.flow.component.icon.Icon;
 import com.vaadin.flow.component.icon.VaadinIcon;

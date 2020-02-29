@@ -1,7 +1,7 @@
 package com.github.devshiro.framr.core;
 
 import com.github.devshiro.framr.annotation.FramrApplication;
-import com.github.devshiro.framr.core.util.FramrClassCollector;
+import com.github.devshiro.framr.core.classcollector.FramrClassCollector;
 import com.github.devshiro.framr.demo.cordapp.flow.ExampleFlow;
 import com.github.devshiro.framr.demo.cordapp.schema.entity.ExampleEntity;
 import com.google.common.reflect.ClassPath;
@@ -45,6 +45,6 @@ public class FramrClassCollectorTest implements WithAssertions {
     public void testClassCollectorFindsFlowClassesByAnnotation() {
         FramrClassCollector classCollector = new FramrClassCollector(this);
         List<Class<?>> flowClasses = classCollector.getFlowClasses();
-        assertThat(flowClasses).containsExactly(ExampleFlow.ExampleFlowInitiator.class);
+        assertThat(flowClasses).containsExactly(ExampleFlow.Initiator.class);
     }
 }

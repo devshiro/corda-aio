@@ -6,11 +6,13 @@ import com.github.devshiro.framr.demo.cordapp.contract.DemoCommands;
 import com.github.devshiro.framr.demo.cordapp.state.ExampleState;
 import com.google.common.collect.ImmutableList;
 import lombok.AllArgsConstructor;
+import lombok.Data;
 import net.corda.core.contracts.Command;
 import net.corda.core.contracts.UniqueIdentifier;
 import net.corda.core.flows.*;
 import net.corda.core.identity.AbstractParty;
 import net.corda.core.identity.Party;
+import net.corda.core.serialization.CordaSerializable;
 import net.corda.core.transactions.SignedTransaction;
 import net.corda.core.transactions.TransactionBuilder;
 
@@ -18,13 +20,19 @@ import java.util.Collections;
 
 public class ExampleFlow {
 
+    @CordaSerializable
+    @Data
+    public static class InitiatorInput {
+        private int amount;
+    }
+
     @InitiatingFlow
     @StartableByRPC
     @AllArgsConstructor
-    @FramrStartableFlow(displayName = "Example Flow Initiator", inputClass = Integer.class)
+    @FramrStartableFlow(displayName = "Example Flow Initiator", inputClass = InitiatorInput.class)
     public static class Initiator extends FlowLogic<SignedTransaction> {
 
-        private final int value;
+        private final InitiatorInput input;
 
         @Suspendable
         @Override
@@ -34,7 +42,7 @@ public class ExampleFlow {
 
             Party issuer = getOurIdentity();
 
-            ExampleState state = new ExampleState(value, issuer, new UniqueIdentifier());
+            ExampleState state = new ExampleState(input.getAmount(), issuer, new UniqueIdentifier());
             final Command<DemoCommands.IssueDemoToken> txCommand = new Command<>(
                     new DemoCommands.IssueDemoToken(),
                     state.getParticipants().stream().map(AbstractParty::getOwningKey).collect(ImmutableList.toImmutableList())

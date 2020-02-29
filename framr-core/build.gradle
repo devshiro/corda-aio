@@ -24,6 +24,9 @@ dependencies {
     testCompile project(":demo:demo-corda-contracts")
     testCompile project(":demo:demo-corda-workflows")
     testCompile("org.assertj:assertj-core:3.11.1")
+
+    testCompileOnly "org.projectlombok:lombok:${LOMBOK_VERSION}"
+    testAnnotationProcessor "org.projectlombok:lombok:${LOMBOK_VERSION}"
 }
 
 test {

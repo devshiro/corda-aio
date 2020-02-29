@@ -1,4 +1,4 @@
-package com.github.devshiro.framr.core.util;
+package com.github.devshiro.framr.core.classcollector;
 
 import com.github.devshiro.framr.annotation.FramrApplication;
 import com.github.devshiro.framr.annotation.FramrEntity;

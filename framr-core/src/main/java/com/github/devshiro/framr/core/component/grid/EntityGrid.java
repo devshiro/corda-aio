@@ -1,4 +1,4 @@
-package com.github.devshiro.framr.core;
+package com.github.devshiro.framr.core.component.grid;
 
 import com.vaadin.flow.component.grid.Grid;
 import lombok.Getter;
