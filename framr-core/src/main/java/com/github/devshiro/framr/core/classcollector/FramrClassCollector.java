@@ -22,6 +22,15 @@ public class FramrClassCollector {
     @Getter
     private final List<Class<?>> cachedFlowClasses;
 
+    public FramrClassCollector(String searchPackageName) {
+        this.searchPackageName = searchPackageName;
+        classGraph = new ClassGraph()
+                .enableClassInfo()
+                .enableAnnotationInfo();
+        cachedEntityClasses = getEntityClasses();
+        cachedFlowClasses = getFlowClasses();
+    }
+
     public FramrClassCollector(Object context) {
         searchPackageName = findSearchPackageNameFromAnnotation(context.getClass());
         classGraph = new ClassGraph()

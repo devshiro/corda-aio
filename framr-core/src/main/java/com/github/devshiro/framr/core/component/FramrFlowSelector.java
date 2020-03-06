@@ -2,9 +2,9 @@ package com.github.devshiro.framr.core.component;
 
 import com.github.devshiro.framr.core.component.dialog.ClassBasedInputDialog;
 import com.github.devshiro.framr.core.component.util.Notifications;
+import com.github.devshiro.framr.core.configuration.FramrInitizr;
 import com.github.devshiro.framr.core.flow.FlowDetail;
 import com.github.devshiro.framr.core.classcollector.FramrClassCollector;
-import com.github.devshiro.framr.core.classcollector.FramrClassCollectorSupplier;
 import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import net.corda.core.flows.FlowLogic;
@@ -18,7 +18,7 @@ public class FramrFlowSelector extends VerticalLayout {
 
     public FramrFlowSelector(CordaRPCOps rpcOps) {
         super();
-        this.classCollector = FramrClassCollectorSupplier.getInstance();
+        this.classCollector = FramrInitizr.getInstance().getClassCollector();
         this.rpcOps = rpcOps;
         init();
     }
