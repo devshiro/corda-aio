@@ -1,7 +1,6 @@
 package com.github.devshiro.framr.app.ui;
 
 import com.github.devshiro.framr.annotation.FramrApplication;
-import com.github.devshiro.framr.app.properties.FramrAppProperties;
 import com.github.devshiro.framr.core.component.layout.FramrAppLayout;
 import com.github.devshiro.framr.core.configuration.FramrConfiguration;
 import com.vaadin.flow.component.page.Viewport;

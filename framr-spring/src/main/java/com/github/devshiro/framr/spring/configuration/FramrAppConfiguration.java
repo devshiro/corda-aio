@@ -1,8 +1,7 @@
-package com.github.devshiro.framr.app.configuration;
+package com.github.devshiro.framr.spring.configuration;
 
-import com.github.devshiro.framr.app.properties.FramrAppProperties;
+import com.github.devshiro.framr.spring.properties.FramrAppProperties;
 import com.github.devshiro.framr.core.configuration.FramrConfiguration;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
