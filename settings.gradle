@@ -13,4 +13,6 @@ include 'demo:demo-corda-contracts'
 include 'demo:demo-corda-workflows'
 include 'demo:demo-frontend'
 include 'framr-annotations'
+include 'framr-spring'
+include 'framr-application'
 

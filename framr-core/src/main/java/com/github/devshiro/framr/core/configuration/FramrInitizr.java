@@ -1,6 +1,7 @@
 package com.github.devshiro.framr.core.configuration;
 
 import com.github.devshiro.framr.core.classcollector.FramrClassCollector;
+import com.github.devshiro.framr.core.repository.RepositorySupplier;
 
 import java.util.Objects;
 
@@ -41,6 +42,7 @@ public class FramrInitizr {
 
         if (eagerInit) {
             classCollector = classCollectorInit(configuration.getClassCollectorConfiguration());
+            RepositorySupplier.init();
         }
     }
 

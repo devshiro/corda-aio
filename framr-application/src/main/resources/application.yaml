@@ -1,0 +1,10 @@
+spring:
+  liquibase:
+    enabled: false
+  jpa:
+    open-in-view: false
+
+framr:
+  classCollector:
+    useAnnotation: false
+    cordappPackageName: "com.github.devshiro.framr.demo"
