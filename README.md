@@ -1,5 +1,7 @@
 # Framr
-UI Generator Framework for CordApps
+Vaadin :heart: Corda
+
+Framr is a UI Generator Framework for CordApps
 
 ## Running the Demo Frontend
 ./gradlew vaadinPrepareNode vaadinBuildFrontend build
