@@ -18,6 +18,9 @@ buildscript {
 apply plugin: 'java'
 apply plugin: 'net.corda.plugins.cordapp'
 
+sourceCompatibility = 1.8
+targetCompatibility = 1.8
+
 // todo: All corda related config and dependency stuff should be moved to separate plugin
 configurations {
     compile {

@@ -3,6 +3,7 @@ plugins {
 }
 
 sourceCompatibility = 1.8
+targetCompatibility = 1.8
 
 ext {
     set('vaadinVersion', "14.1.17")
