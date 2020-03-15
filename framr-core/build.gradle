@@ -1,9 +1,4 @@
-plugins {
-    id 'java'
-}
-
-sourceCompatibility = 1.8
-targetCompatibility = 1.8
+apply plugin: JavaModuleBasePlugin
 
 ext {
     set('vaadinVersion', "14.1.17")
@@ -14,20 +9,12 @@ dependencies {
     // https://mvnrepository.com/artifact/com.vaadin/vaadin
     compile group: 'com.vaadin', name: 'vaadin', version: '14.1.17'
 
-    compileOnly "org.projectlombok:lombok:${LOMBOK_VERSION}"
-    annotationProcessor "org.projectlombok:lombok:${LOMBOK_VERSION}"
-
     compile "net.corda:corda-rpc:${CORDA_VERSION}"
 
     compile project(":framr-annotations")
 
-    testImplementation('org.junit.jupiter:junit-jupiter:5.6.0')
     testCompile project(":demo:demo-corda-contracts")
     testCompile project(":demo:demo-corda-workflows")
-    testCompile("org.assertj:assertj-core:3.11.1")
-
-    testCompileOnly "org.projectlombok:lombok:${LOMBOK_VERSION}"
-    testAnnotationProcessor "org.projectlombok:lombok:${LOMBOK_VERSION}"
 }
 
 test {

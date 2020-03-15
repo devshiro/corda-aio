@@ -13,13 +13,10 @@ buildscript {
     }
 }
 
-apply plugin: 'java'
+apply plugin: JavaModuleBasePlugin
 apply plugin: 'net.corda.plugins.cordapp'
 apply plugin: 'net.corda.plugins.cordformation'
 apply plugin: 'net.corda.plugins.quasar-utils'
-
-sourceCompatibility = 1.8
-targetCompatibility = 1.8
 
 task installQuasar(type: Copy) {
     destinationDir rootProject.file("lib")
@@ -83,9 +80,6 @@ dependencies {
 
     compile project(":framr-annotations")
 
-    testImplementation "junit:junit:${JUNIT_VERSION}"
-    testImplementation "org.assertj:assertj-core:3.11.1"
-
     // Corda dependencies.
     cordaCompile "net.corda:corda-core:${CORDA_VERSION}"
     cordaCompile "net.corda:corda-jackson:${CORDA_VERSION}"
@@ -97,7 +91,4 @@ dependencies {
 
     // CorDapp dependencies.
     cordapp project(":demo:demo-corda-contracts")
-
-    compileOnly "org.projectlombok:lombok:${LOMBOK_VERSION}"
-    annotationProcessor "org.projectlombok:lombok:${LOMBOK_VERSION}"
 }
