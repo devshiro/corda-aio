@@ -2,16 +2,18 @@ import org.gradle.api.Plugin
 import org.gradle.api.Project
 import org.gradle.api.artifacts.Dependency
 import org.gradle.api.artifacts.DependencySet
-import org.gradle.api.plugins.JavaPlugin
 
 class JavaModuleBasePlugin implements Plugin<Project> {
     @Override
     void apply(Project project) {
-        // Set up plugins
-        // Add the java plugin
-        project.getPluginManager().apply(JavaPlugin.class);
-        project.setProperty("sourceCompatibility", 1.8);
-        project.setProperty("targetCompatibility", 1.8);
+        project.with {
+            // fill out like build.gradle
+            apply plugin: 'java'
+            apply plugin: 'idea'
+
+            sourceCompatibility = 1.8
+            targetCompatibility = 1.8
+        }
 
         // Set up dependencies
         DependencySet implementation = project.getConfigurations().getByName("implementation").getDependencies()

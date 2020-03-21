@@ -1,6 +1,7 @@
 package com.github.devshiro.framr.app.ui;
 
 import com.github.devshiro.framr.annotation.FramrApplication;
+import com.github.devshiro.framr.core.component.NodeBrowser;
 import com.github.devshiro.framr.core.component.layout.FramrAppLayout;
 import com.github.devshiro.framr.core.configuration.FramrConfiguration;
 import com.vaadin.flow.component.page.Viewport;
@@ -13,7 +14,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 @PWA(name = "Demo Dashboard", shortName = "DemoApp")
 @FramrApplication(packageName = "com.github.devshiro.framr.demo")
 public class ApplicationUI extends FramrAppLayout {
+
+    private final NodeBrowser nodeBrowser;
+
     public ApplicationUI(@Autowired FramrConfiguration framrConfiguration) {
         super(framrConfiguration);
+        nodeBrowser = new NodeBrowser(this::setContent, FramrNodeLayout::new);
+        addToNavbar(nodeBrowser);
     }
 }

@@ -9,19 +9,19 @@ import com.vaadin.flow.component.html.Label;
 import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
 import net.corda.core.messaging.CordaRPCOps;
 
-public class FramrCordaNodeView extends HorizontalLayout {
+public abstract class CordaNodeLayoutBase extends HorizontalLayout {
 
-    private CordaRPCOps rpcOps;
-    private final FramrClassCollector classCollector;
+    protected CordaRPCOps rpcOps;
 
-    public FramrCordaNodeView(CordaNodeDetails nodeDetails) {
+    protected FramrClassCollector classCollector;
+
+    public CordaNodeLayoutBase() {
         super();
+    }
+
+    public final void init(CordaNodeDetails nodeDetails) {
         CordaConnector cordaConnector = new CordaConnector(nodeDetails);
         rpcOps = cordaConnector.getConnection().getProxy();
         classCollector = FramrInitizr.getInstance().getClassCollector();
-        FramrFlowSelector framrFlowSelector = new FramrFlowSelector(rpcOps);
-        Label label = new Label("Hello from " + rpcOps.nodeInfo().toString());
-        add(framrFlowSelector, label);
-        setSizeFull();
     }
 }

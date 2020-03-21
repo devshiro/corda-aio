@@ -1,7 +1,7 @@
 package com.github.devshiro.framr.core.component;
 
 import com.github.devshiro.framr.core.component.util.Notifications;
-import com.github.devshiro.framr.core.component.view.FramrCordaNodeView;
+import com.github.devshiro.framr.core.component.view.CordaNodeLayoutBase;
 import com.github.devshiro.framr.core.corda.CordaNodeDetails;
 import com.github.devshiro.framr.core.component.dialog.ClassBasedInputDialog;
 import com.github.devshiro.framr.core.util.Callback;
@@ -12,21 +12,24 @@ import com.vaadin.flow.component.icon.VaadinIcon;
 import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
 import com.vaadin.flow.component.tabs.Tab;
 import com.vaadin.flow.component.tabs.Tabs;
-import lombok.Setter;
 
 import java.util.LinkedHashMap;
 import java.util.Map;
+import java.util.function.Supplier;
 
 public class NodeBrowser extends HorizontalLayout {
 
     private final Map<Tab, Component> tabsToComponents;
     private final Tabs nodeTabs;
 
-    @Setter
-    private Callback<Component> onTabChange;
+    private final Callback<Component> onTabChange;
 
-    public NodeBrowser() {
+    private final Supplier<? extends CordaNodeLayoutBase> contentSupplier;
+
+    public NodeBrowser(Callback<Component> onTabChange, Supplier<? extends CordaNodeLayoutBase> contentSupplier) {
         super();
+        this.onTabChange = onTabChange;
+        this.contentSupplier = contentSupplier;
         tabsToComponents = new LinkedHashMap<>();
         nodeTabs = connectionTabs();
         add(nodeTabs, newConnectionButton());
@@ -53,7 +56,8 @@ public class NodeBrowser extends HorizontalLayout {
             ClassBasedInputDialog<CordaNodeDetails> detailsForm = new ClassBasedInputDialog<>(CordaNodeDetails.class, "Connect", nodeDetails -> {
                 Tab nodeTab = new Tab(nodeDetails.getHost() + ":" + nodeDetails.getPort());
                 try {
-                    FramrCordaNodeView nodeView = new FramrCordaNodeView(nodeDetails);
+                    CordaNodeLayoutBase nodeView = contentSupplier.get();
+                    nodeView.init(nodeDetails);
                     tabsToComponents.put(nodeTab, nodeView);
                     nodeTabs.add(nodeTab);
                 } catch (Exception ex) {

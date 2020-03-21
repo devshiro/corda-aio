@@ -6,6 +6,7 @@ import com.github.devshiro.framr.core.configuration.FramrConfiguration;
 import com.github.devshiro.framr.core.configuration.FramrInitizr;
 import com.vaadin.flow.component.applayout.AppLayout;
 
+// Extension of the vaadin AppLayout with Framr stuff
 public class FramrAppLayout extends AppLayout {
 
     protected final FramrClassCollector classCollector;
@@ -13,12 +14,5 @@ public class FramrAppLayout extends AppLayout {
     public FramrAppLayout(FramrConfiguration configuration) {
         FramrInitizr.init(configuration, true);
         classCollector = FramrInitizr.getInstance().getClassCollector();
-        setupNavBar();
-    }
-
-    private void setupNavBar() {
-        NodeBrowser nodeBrowser = new NodeBrowser();
-        nodeBrowser.setOnTabChange(this::setContent);
-        addToNavbar(nodeBrowser);
     }
 }
