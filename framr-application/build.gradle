@@ -1,21 +1,15 @@
 plugins {
-    id 'org.springframework.boot' version '2.1.6.RELEASE'
-    id 'io.spring.dependency-management' version '1.0.8.RELEASE'
+    id 'org.springframework.boot' version '2.2.5.RELEASE'
+    id 'io.spring.dependency-management' version '1.0.9.RELEASE'
     id 'com.google.cloud.tools.jib' version '1.8.0'
     id 'idea'
-    id 'com.vaadin' version '0.6.0'
 }
 
 apply plugin: JavaModuleBasePlugin
 
 repositories {
     mavenCentral()
-    maven { url "https://maven.vaadin.com/vaadin-addons" }
-}
-
-dependencyManagement {
-    imports {
-        mavenBom "com.vaadin:vaadin-bom:14.1.17"    }
+    maven { url "https://oss.sonatype.org/content/repositories/vaadin-snapshots" }
 }
 
 configurations {
@@ -24,11 +18,13 @@ configurations {
 }
 
 dependencies {
-    implementation ('com.vaadin:vaadin-spring-boot-starter') {
-        ["com.vaadin.webjar", "org.webjars.bowergithub.insites",
-         "org.webjars.bowergithub.polymer", "org.webjars.bowergithub.polymerelements",
-         "org.webjars.bowergithub.vaadin", "org.webjars.bowergithub.webcomponents"]
-                .forEach { group -> exclude(group: group) }
+
+    implementation 'com.vaadin:vaadin-spring-boot-starter:3.2.1'
+
+    implementation project(":framr-spring")
+
+    testImplementation('org.springframework.boot:spring-boot-starter-test') {
+        exclude group: 'org.junit.vintage', module: 'junit-vintage-engine'
     }
 
     implementation 'org.hibernate:hibernate-core:5.3.15.Final'
@@ -37,19 +33,10 @@ dependencies {
     compile "net.corda:corda-rpc:${CORDA_VERSION}"
     compile group: 'javax.json', name: 'javax.json-api', version: '1.1.4'
 
-    compile 'info.picocli:picocli:4.2.0'
-    annotationProcessor 'info.picocli:picocli-codegen:4.2.0'
-
-    compile project(":framr-spring")
+    runtime project(":demo:demo-corda-contracts")
+    runtime project(":demo:demo-corda-workflows")
 
     runtimeOnly 'com.h2database:h2'
-
-    testImplementation 'org.springframework.boot:spring-boot-starter-test'
-
-}
-
-vaadin {
-    npmFolder = project.projectDir
 }
 
 jib {

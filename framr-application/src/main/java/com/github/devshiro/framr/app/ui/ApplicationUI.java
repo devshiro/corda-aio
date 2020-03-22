@@ -1,25 +1,31 @@
 package com.github.devshiro.framr.app.ui;
 
-import com.github.devshiro.framr.annotation.FramrApplication;
 import com.github.devshiro.framr.core.component.NodeBrowser;
-import com.github.devshiro.framr.core.component.layout.FramrAppLayout;
+import com.github.devshiro.framr.core.component.view.FramrUI;
 import com.github.devshiro.framr.core.configuration.FramrConfiguration;
-import com.vaadin.flow.component.page.Viewport;
-import com.vaadin.flow.router.Route;
-import com.vaadin.flow.server.PWA;
+import com.vaadin.server.VaadinRequest;
+import com.vaadin.spring.annotation.SpringUI;
+import com.vaadin.ui.Button;
+import com.vaadin.ui.Notification;
+import com.vaadin.ui.VerticalLayout;
 import org.springframework.beans.factory.annotation.Autowired;
 
-@Route("")
-@Viewport("width=device-width, minimum-scale=1, initial-scale=1, user-scalable=yes, viewport-fit=cover")
-@PWA(name = "Demo Dashboard", shortName = "DemoApp")
-@FramrApplication(packageName = "com.github.devshiro.framr.demo")
-public class ApplicationUI extends FramrAppLayout {
+@SpringUI(path = "/")
+public class ApplicationUI extends FramrUI {
 
-    private final NodeBrowser nodeBrowser;
+    private VerticalLayout verticalLayout = new VerticalLayout();
 
-    public ApplicationUI(@Autowired FramrConfiguration framrConfiguration) {
-        super(framrConfiguration);
-        nodeBrowser = new NodeBrowser(this::setContent, FramrNodeLayout::new);
-        addToNavbar(nodeBrowser);
+    @Autowired
+    public ApplicationUI(FramrConfiguration configuration) {
+        super(configuration);
+    }
+
+    @Override
+    protected void init(VaadinRequest vaadinRequest) {
+        NodeBrowser nodeBrowser = new NodeBrowser(component -> {
+        }, NodeView::new);
+        verticalLayout.addComponent(nodeBrowser);
+        setContent(verticalLayout);
+        setSizeFull();
     }
 }

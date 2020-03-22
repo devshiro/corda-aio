@@ -2,21 +2,23 @@ package com.github.devshiro.framr.core.component.layout;
 
 import com.github.devshiro.framr.core.mapper.StringInputMapper;
 import com.github.devshiro.framr.core.mapper.StringMapper;
-import com.vaadin.flow.component.formlayout.FormLayout;
-import com.vaadin.flow.component.html.Label;
-import com.vaadin.flow.component.textfield.TextField;
+import com.vaadin.ui.FormLayout;
+import com.vaadin.ui.Label;
+import com.vaadin.ui.TextField;
 import lombok.Data;
 import lombok.Getter;
 
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
-import java.util.*;
+import java.util.Arrays;
+import java.util.LinkedList;
+import java.util.List;
 import java.util.stream.Collectors;
 
 public class ClassBasedFormLayout extends FormLayout {
 
     @Data
-   public class ClassField {
+    public class ClassField {
         private final String fieldName;
         private final Method setter;
         private TextField valueTextField;
@@ -34,7 +36,7 @@ public class ClassBasedFormLayout extends FormLayout {
         pojoClass = pojo;
         extractFields();
         setupForm();
-        add(new Label("Vadim blyat! this shit ( " + pojo.getName() + ") has " + fields.size()));
+        addComponent(new Label("Vadim blyat! this shit ( " + pojo.getName() + ") has " + fields.size()));
     }
 
     public <T> T readForm(StringInputMapper<T> inputMapper) {
@@ -70,11 +72,11 @@ public class ClassBasedFormLayout extends FormLayout {
     private void setupForm() {
         fields.stream()
                 .forEachOrdered(field -> {
-            TextField textField = new TextField();
-            textField.setLabel(field.getFieldName());
-            field.setValueTextField(textField);
-            add(textField);
-        });
+                    TextField textField = new TextField();
+                    textField.setCaption(field.getFieldName());
+                    field.setValueTextField(textField);
+                    addComponent(textField);
+                });
     }
 
     private void extractFields() {

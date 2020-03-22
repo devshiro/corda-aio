@@ -1,13 +1,10 @@
 apply plugin: JavaModuleBasePlugin
 
-ext {
-    set('vaadinVersion', "14.1.17")
-}
 
 dependencies {
-    compile group: 'io.github.classgraph', name: 'classgraph', version: '4.8.62'
-    // https://mvnrepository.com/artifact/com.vaadin/vaadin
-    compile group: 'com.vaadin', name: 'vaadin', version: '14.1.17'
+    implementation "io.github.classgraph:classgraph:${CLASSGRAPH_VERSION}"
+
+    implementation 'com.vaadin:vaadin-server:8.10.2'
 
     compile "net.corda:corda-rpc:${CORDA_VERSION}"
 

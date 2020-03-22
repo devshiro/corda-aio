@@ -2,7 +2,7 @@ package com.github.devshiro.framr.core.component.grid;
 
 import com.github.devshiro.framr.core.repository.CordaStateRepository;
 import com.github.devshiro.framr.core.repository.RepositorySupplier;
-import com.vaadin.flow.component.grid.Grid;
+import com.vaadin.ui.Grid;
 import lombok.Getter;
 
 import java.util.ArrayList;
@@ -15,7 +15,7 @@ public class EntityGrid<T> extends Grid<T> {
 
     private CordaStateRepository<T, ?> repository;
 
-    private final List<Grid.Column<T>> definedColumns;
+    private final List<Grid.Column<T, ?>> definedColumns;
 
     public EntityGrid(Class<T> entityClass) {
         super(entityClass);
