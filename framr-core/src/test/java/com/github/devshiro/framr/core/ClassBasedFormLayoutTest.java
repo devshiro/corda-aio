@@ -26,7 +26,7 @@ public class ClassBasedFormLayoutTest implements WithAssertions {
     @Test
     public void testCBFL() {
         ClassBasedFormLayout layout = new ClassBasedFormLayout(CordaNodeDetails.class);
-        assertThat(layout.getFields()).hasSize(4);
+        assertThat(layout.getFields()).hasSize(7);
     }
 
 }

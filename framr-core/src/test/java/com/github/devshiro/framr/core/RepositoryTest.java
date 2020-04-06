@@ -1,5 +1,6 @@
 package com.github.devshiro.framr.core;
 
+import com.github.devshiro.framr.core.corda.CordaNodeDetails;
 import com.github.devshiro.framr.core.repository.CordaStateRepository;
 import com.github.devshiro.framr.core.repository.RepositorySupplier;
 import com.github.devshiro.framr.demo.cordapp.schema.entity.ExampleEntity;
@@ -9,6 +10,7 @@ import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestInstance;
 
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
@@ -23,7 +25,7 @@ public class RepositoryTest implements WithAssertions {
         private String lastName;
     }
 
-    private class ExampleInMemoryRepository implements CordaStateRepository<ExampleState, UUID> {
+    private class ExampleInMemoryRepository extends CordaStateRepository<ExampleState, UUID> {
 
         private List<ExampleState> states = new ArrayList<>();
 

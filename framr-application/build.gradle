@@ -33,8 +33,8 @@ dependencies {
     compile "net.corda:corda-rpc:${CORDA_VERSION}"
     compile group: 'javax.json', name: 'javax.json-api', version: '1.1.4'
 
-    runtime project(":demo:demo-corda-contracts")
-    runtime project(":demo:demo-corda-workflows")
+    compile project(":demo:demo-corda-contracts")
+    compile project(":demo:demo-corda-workflows")
 
     runtimeOnly 'com.h2database:h2'
 }

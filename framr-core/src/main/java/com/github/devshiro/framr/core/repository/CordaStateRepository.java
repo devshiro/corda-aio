@@ -2,11 +2,11 @@ package com.github.devshiro.framr.core.repository;
 
 import java.util.List;
 
-public interface CordaStateRepository<T, I> {
+public abstract class CordaStateRepository<T, I> {
 
-    Class<T> getStateClass();
+    public abstract Class<T> getStateClass();
 
-    public List<T> findAll();
+    public abstract List<T> findAll();
 
-    public T findOne(I id);
+    public abstract T findOne(I id);
 }

@@ -25,9 +25,9 @@ public class ClassBasedInputDialog<T> extends Window {
     }
 
     public ClassBasedInputDialog(Class<T> inputClass, String confirmButtonText, VaadinIcons confirmButtonIcon, StringInputMapper<T> mapper, Callback<T> onClose) {
-        super();
         VerticalLayout windowLayout = new VerticalLayout();
         ClassBasedFormLayout formLayout = new ClassBasedFormLayout(inputClass);
+        formLayout.setSizeUndefined();
         windowLayout.addComponent(formLayout);
         Button confirmButton = new Button();
         confirmButton.setCaption(confirmButtonText);
@@ -39,6 +39,7 @@ public class ClassBasedInputDialog<T> extends Window {
             close();
         });
         windowLayout.addComponent(confirmButton);
+        windowLayout.setSizeUndefined();
         setContent(windowLayout);
         center();
     }

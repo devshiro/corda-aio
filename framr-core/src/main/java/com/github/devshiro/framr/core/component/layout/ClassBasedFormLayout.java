@@ -36,7 +36,6 @@ public class ClassBasedFormLayout extends FormLayout {
         pojoClass = pojo;
         extractFields();
         setupForm();
-        addComponent(new Label("Vadim blyat! this shit ( " + pojo.getName() + ") has " + fields.size()));
     }
 
     public <T> T readForm(StringInputMapper<T> inputMapper) {

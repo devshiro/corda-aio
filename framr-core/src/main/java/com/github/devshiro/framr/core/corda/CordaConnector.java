@@ -13,9 +13,9 @@ public class CordaConnector {
     private CordaRPCConnection connection;
 
     public CordaConnector(CordaNodeDetails nodeDetails) {
-        NetworkHostAndPort hostAndPort = new NetworkHostAndPort(nodeDetails.getHost(), nodeDetails.getPort());
+        NetworkHostAndPort hostAndPort = new NetworkHostAndPort(nodeDetails.getRpcHost(), nodeDetails.getRpcPort());
         client = new CordaRPCClient(hostAndPort);
-        init(nodeDetails.getUsername(), nodeDetails.getPassword());
+        init(nodeDetails.getRpcUsername(), nodeDetails.getRpcPassword());
     }
 
     public CordaConnector(String host, int port) {

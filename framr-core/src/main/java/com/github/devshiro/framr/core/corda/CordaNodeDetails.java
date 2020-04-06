@@ -4,8 +4,11 @@ import lombok.Data;
 
 @Data
 public class CordaNodeDetails {
-    private String host;
-    private int port;
-    private String username;
-    private String password;
+    private String rpcHost;
+    private int rpcPort;
+    private String rpcUsername;
+    private String rpcPassword;
+    private String jdbcUrl;
+    private String jdbcUsername;
+    private String jdbcPassword;
 }

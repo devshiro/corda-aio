@@ -12,7 +12,7 @@ import java.util.LinkedHashMap;
 import java.util.Map;
 import java.util.function.Supplier;
 
-public class NodeBrowser extends HorizontalLayout {
+public class NodeBrowser extends VerticalLayout {
 
     private final Map<TabSheet.Tab, Component> tabsToComponents;
     private final TabSheet nodeTabs;
@@ -27,7 +27,11 @@ public class NodeBrowser extends HorizontalLayout {
         this.contentSupplier = contentSupplier;
         tabsToComponents = new LinkedHashMap<>();
         nodeTabs = connectionTabs();
-        addComponents(nodeTabs, newConnectionButton());
+        nodeTabs.setSizeFull();
+        addComponents(newConnectionButton(), nodeTabs);
+        setSpacing(false);
+        setMargin(false);
+        setWidthFull();
     }
 
     private TabSheet connectionTabs() {
@@ -43,10 +47,11 @@ public class NodeBrowser extends HorizontalLayout {
     private Button newConnectionButton() {
         Button addButton = new Button();
         VaadinIcons icon = VaadinIcons.PLUS;
+        addButton.setCaption("Connect to Corda node");
         addButton.setIcon(icon);
         addButton.addClickListener(e -> {
             ClassBasedInputDialog<CordaNodeDetails> detailsForm = new ClassBasedInputDialog<>(CordaNodeDetails.class, "Connect", nodeDetails -> {
-                String caption = nodeDetails.getHost() + ":" + nodeDetails.getPort();
+                String caption = nodeDetails.getRpcHost() + ":" + nodeDetails.getRpcPort();
                 try {
                     CordaNodeLayoutBase nodeView = contentSupplier.get();
                     nodeView.init(nodeDetails);
