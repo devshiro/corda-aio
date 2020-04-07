@@ -16,4 +16,6 @@ include 'framr-spring'
 include 'framr-application'
 include 'framr-corda'
 include 'framr-nodes-dev'
+include 'framr-modules:framr-module-common'
+include 'framr-modules:framr-cordapp-module'
 

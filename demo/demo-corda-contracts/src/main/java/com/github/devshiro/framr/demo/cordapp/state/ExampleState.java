@@ -1,5 +1,6 @@
 package com.github.devshiro.framr.demo.cordapp.state;
 
+import com.github.devshiro.framr.annotation.FramrState;
 import com.github.devshiro.framr.demo.cordapp.contract.DemoContract;
 import com.github.devshiro.framr.demo.cordapp.schema.DemoSchemaV1;
 import com.github.devshiro.framr.demo.cordapp.schema.entity.ExampleEntity;
@@ -22,6 +23,7 @@ import java.util.List;
 @Data
 @AllArgsConstructor
 @BelongsToContract(DemoContract.class)
+@FramrState
 public class ExampleState implements LinearState, QueryableState {
 
     private final Integer value;

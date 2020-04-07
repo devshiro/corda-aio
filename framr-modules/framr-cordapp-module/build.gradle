@@ -1,0 +1,16 @@
+apply plugin: JavaModuleBasePlugin
+
+dependencies {
+    implementation project(':framr-modules:framr-module-common')
+    implementation project(':framr-annotations')
+
+    implementation("io.github.classgraph:classgraph:${CLASSGRAPH_VERSION}")
+    implementation("com.google.guava:guava:${GUAVA_VERSION}")
+
+    testImplementation project(':demo:demo-corda-contracts')
+    testImplementation project(':demo:demo-corda-workflows')
+}
+
+test {
+    useJUnitPlatform()
+}
