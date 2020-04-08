@@ -1,0 +1,18 @@
+apply plugin: JavaModuleBasePlugin
+
+dependencies {
+    implementation project(':framr-modules:framr-module-common')
+    implementation project(':framr-modules:framr-cordapp-module')
+    implementation("com.google.guava:guava:${GUAVA_VERSION}")
+    implementation('org.hibernate:hibernate-core:5.4.11.Final')
+
+    runtime("com.h2database:h2:${H2_VERSION}")
+
+    testImplementation project(':demo:demo-corda-contracts')
+    testImplementation project(':demo:demo-corda-workflows')
+    testImplementation("com.h2database:h2:${H2_VERSION}")
+}
+
+test {
+    useJUnitPlatform()
+}
