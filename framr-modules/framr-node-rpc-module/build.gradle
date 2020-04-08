@@ -1,0 +1,14 @@
+apply plugin: JavaModuleBasePlugin
+
+dependencies {
+    implementation project(':framr-modules:framr-module-common')
+    implementation("com.google.guava:guava:${GUAVA_VERSION}")
+
+    implementation("net.corda:corda-rpc:${CORDA_VERSION}")
+
+    testImplementation project(':demo:demo-corda-workflows')
+}
+
+test {
+    useJUnitPlatform()
+}
