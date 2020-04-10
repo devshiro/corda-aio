@@ -11,6 +11,18 @@ import java.util.List;
 
 public interface CordappRegistry {
 
+    public enum Type {
+        INMEMORY
+    }
+
+    static CordappRegistry getInstance(Type type) {
+        if (Type.INMEMORY.equals(type)) {
+            return InMemoryCordappRegistry.getInstance();
+        } else {
+            throw new IllegalArgumentException("Invalid ConfigurationManager type: " + type);
+        }
+    }
+
     List<Cordapp> getAllCordapps();
     List<Flow> getAllFlows();
     List<Entity> getAllEntities();

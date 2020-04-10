@@ -2,6 +2,7 @@ import org.gradle.api.Plugin
 import org.gradle.api.Project
 import org.gradle.api.artifacts.Dependency
 import org.gradle.api.artifacts.DependencySet
+import org.gradle.api.publish.maven.MavenPublication
 
 class JavaModuleBasePlugin implements Plugin<Project> {
     @Override
@@ -10,9 +11,25 @@ class JavaModuleBasePlugin implements Plugin<Project> {
             // fill out like build.gradle
             apply plugin: 'java'
             apply plugin: 'idea'
+            apply plugin: 'maven-publish'
 
             sourceCompatibility = 1.8
             targetCompatibility = 1.8
+
+            repositories {
+                mavenLocal()
+                mavenCentral()
+            }
+
+            publishing {
+                publications {
+                    maven(MavenPublication) {
+                        groupId = 'com.github.devshiro.framr'
+                        artifactId = project.getName()
+                        version = project.getVersion()
+                    }
+                }
+            }
         }
 
         // Set up dependencies

@@ -1,26 +1,30 @@
+plugins {
+    id 'com.vaadin' version "${VAADIN_GRADLE_PLUGIN_VERSION}"
+}
+
 apply plugin: JavaModuleBasePlugin
 
-
 dependencies {
-    implementation "io.github.classgraph:classgraph:${CLASSGRAPH_VERSION}"
+    implementation project(':framr-modules:framr-cordapp-module')
+    implementation project(':framr-modules:framr-node-db-module')
+    implementation project(':framr-modules:framr-node-rpc-module')
+    implementation project(':framr-modules:framr-module-common')
 
-    implementation 'com.vaadin:vaadin-server:8.10.2'
-    implementation 'com.zaxxer:HikariCP:3.4.2'
-    implementation 'org.hibernate:hibernate-core:5.4.11.Final'
 
-    runtime 'com.h2database:h2:1.4.200'
+    implementation "com.vaadin:vaadin-spring-boot-starter:${VAADIN_SPRING_BOOT_STARTER_VERSION}"
 
-    compile "net.corda:corda-rpc:${CORDA_VERSION}"
+    testImplementation project(':demo:demo-corda-contracts')
+    testImplementation project(':demo:demo-corda-workflows')
+}
 
-    compile project(":framr-annotations")
-
-    testCompile project(":demo:demo-corda-contracts")
-    testCompile project(":demo:demo-corda-workflows")
+configurations {
+    all*.exclude group: 'org.apache.logging.log4j', module: 'log4j-to-slf4j'
+    all*.exclude group: 'org.apache.logging.log4j', module: 'log4j-slf4j-impl'
 }
 
 test {
     useJUnitPlatform()
-    testLogging {
-        events "passed", "skipped", "failed"
-    }
+}
+
+vaadin {
 }

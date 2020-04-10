@@ -8,7 +8,7 @@
  */
 
 rootProject.name = 'framr'
-include 'framr-core'
+include 'framr-core-old'
 include 'demo:demo-corda-contracts'
 include 'demo:demo-corda-workflows'
 include 'framr-annotations'
@@ -20,5 +20,6 @@ include 'framr-modules:framr-module-common'
 include 'framr-modules:framr-cordapp-module'
 include 'framr-modules:framr-node-db-module'
 include 'framr-modules:framr-node-rpc-module'
-findProject(':framr-modules:framr-node-rpc-module')?.name = 'framr-node-rpc-module'
+include 'framr-core'
+include 'framr-vaadin-components'
 

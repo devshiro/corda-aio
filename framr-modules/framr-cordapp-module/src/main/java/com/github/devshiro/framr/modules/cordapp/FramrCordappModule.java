@@ -28,17 +28,24 @@ public class FramrCordappModule extends FramrModuleBase {
 
     private static volatile FramrCordappModule _instance;
 
-    public static synchronized FramrCordappModule getInstance() {
+    public static synchronized FramrCordappModule getInstance(CordappRegistry.Type type) {
         if (_instance == null) {
-            _instance = new FramrCordappModule();
+            _instance = new FramrCordappModule(type);
         }
         return _instance;
     }
 
-    private FramrCordappModule() {
+    public static synchronized FramrCordappModule getInstance() {
+        if (_instance == null) {
+            _instance = new FramrCordappModule(CordappRegistry.Type.INMEMORY);
+        }
+        return _instance;
+    }
+
+    private FramrCordappModule(CordappRegistry.Type type) {
         super(TYPE_ID);
         classpathCordappLoader = ClasspathCordappLoader.getInstance();
-        cordappRegistry = InMemoryCordappRegistry.getInstance();
+        cordappRegistry = CordappRegistry.getInstance(type);
     }
 
     public List<Flow> getFlows() {

@@ -1,0 +1,9 @@
+framr:
+  cordappModule:
+    cordappRegistryType: INMEMORY
+
+  nodeRPCModule:
+    rpcManagerType: INMEMORY
+
+  nodeDBModule:
+    dbConfigurationManagerType: INMEMORY

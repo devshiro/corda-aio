@@ -19,7 +19,14 @@ public class FramrNodeDBModule extends FramrModuleBase {
 
     public static synchronized FramrNodeDBModule getInstance() {
         if (_instance == null) {
-            _instance = new FramrNodeDBModule();
+            _instance = new FramrNodeDBModule(ConfigurationManager.Type.INMEMORY);
+        }
+        return _instance;
+    }
+
+    public static synchronized FramrNodeDBModule getInstance(ConfigurationManager.Type type) {
+        if (_instance == null) {
+            _instance = new FramrNodeDBModule(type);
         }
         return _instance;
     }
@@ -29,9 +36,9 @@ public class FramrNodeDBModule extends FramrModuleBase {
 
     private final Map<UUID, NodeInfo> registeredNodes;
 
-    protected FramrNodeDBModule() {
+    protected FramrNodeDBModule(ConfigurationManager.Type type) {
         super(TYPE_ID);
-        configurationManager = ConfigurationManager.getInstance(ConfigurationManager.Type.INMEMORY);
+        configurationManager = ConfigurationManager.getInstance(type);
         sessionManager = HibernateSessionManager.getInstance();
         registeredNodes = new HashMap<>();
     }

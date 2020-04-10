@@ -19,16 +19,23 @@ public class FramrNodeRPCModule extends FramrModuleBase {
 
     public static synchronized FramrNodeRPCModule getInstance() {
         if (_instance == null) {
-            _instance = new FramrNodeRPCModule();
+            _instance = new FramrNodeRPCModule(NodeRPCManager.Type.INMEMORY);
+        }
+        return _instance;
+    }
+
+    public static synchronized FramrNodeRPCModule getInstance(NodeRPCManager.Type type) {
+        if (_instance == null) {
+            _instance = new FramrNodeRPCModule(type);
         }
         return _instance;
     }
 
     private final NodeRPCManager nodeRPCManager;
 
-    private FramrNodeRPCModule() {
+    private FramrNodeRPCModule(NodeRPCManager.Type type) {
         super(TYPE_ID);
-        nodeRPCManager = NodeRPCManager.getInstance(NodeRPCManager.Type.INMEMORY);
+        nodeRPCManager = NodeRPCManager.getInstance(type);
     }
 
     public UUID registerNode(String host, int port) {
