@@ -1,7 +1,6 @@
 apply plugin: JavaModuleBasePlugin
 
 dependencies {
-    implementation platform("com.vaadin:vaadin-bom:${VAADIN_BOM}")
-    implementation 'com.vaadin:vaadin-core'
-    implementation 'com.vaadin:vaadin-dialog-flow'
+    implementation platform("com.vaadin:vaadin-bom:${VAADIN_BOM_VERSION}")
+    implementation 'com.vaadin:vaadin-server'
 }

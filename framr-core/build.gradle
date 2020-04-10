@@ -1,8 +1,13 @@
 plugins {
-    id 'com.vaadin' version "${VAADIN_GRADLE_PLUGIN_VERSION}"
+    id 'org.springframework.boot' version "${SPRING_BOOT_VERSION}"
+    id 'io.spring.dependency-management' version "${SPRING_DEPENDENCY_MANAGEMENT_VERSION}"
 }
 
 apply plugin: JavaModuleBasePlugin
+
+repositories {
+    maven { url "https://oss.sonatype.org/content/repositories/vaadin-snapshots" }
+}
 
 dependencies {
     implementation project(':framr-modules:framr-cordapp-module')
@@ -10,8 +15,9 @@ dependencies {
     implementation project(':framr-modules:framr-node-rpc-module')
     implementation project(':framr-modules:framr-module-common')
 
-
-    implementation "com.vaadin:vaadin-spring-boot-starter:${VAADIN_SPRING_BOOT_STARTER_VERSION}"
+    implementation platform("com.vaadin:vaadin-bom:${VAADIN_BOM_VERSION}")
+    implementation 'com.vaadin:vaadin-spring-boot-starter'
+    implementation project(':framr-vaadin-components')
 
     testImplementation project(':demo:demo-corda-contracts')
     testImplementation project(':demo:demo-corda-workflows')
@@ -24,7 +30,4 @@ configurations {
 
 test {
     useJUnitPlatform()
-}
-
-vaadin {
 }

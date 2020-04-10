@@ -1,13 +1,27 @@
 package com.github.devshiro.framr.core.ui;
 
-import com.vaadin.flow.component.html.Div;
-import com.vaadin.flow.router.Route;
-import com.vaadin.flow.server.PWA;
+import com.github.devshiro.framr.vaadin.components.dialog.ClassBasedInputDialog;
+import com.vaadin.server.VaadinRequest;
+import com.vaadin.spring.annotation.SpringUI;
+import com.vaadin.ui.Button;
+import com.vaadin.ui.TextField;
+import com.vaadin.ui.UI;
+import com.vaadin.ui.VerticalLayout;
+import lombok.Data;
 
-@PWA(name = "Framr Application", shortName = "FramR")
-@Route("")
-public class MainUI extends Div {
-    public MainUI() {
-        setText("Hello PWA Vaadin 15 (again)");
+@SpringUI
+public class MainUI extends UI {
+
+    @Data
+    public class ExampleClass {
+        private String asd1;
+        private String asd2;
+        private String url;
+    }
+
+    @Override
+    protected void init(VaadinRequest request) {
+        ClassBasedInputDialog<ExampleClass> dialog = new ClassBasedInputDialog<>(ExampleClass.class, exampleClass -> {});
+        addWindow(dialog);
     }
 }

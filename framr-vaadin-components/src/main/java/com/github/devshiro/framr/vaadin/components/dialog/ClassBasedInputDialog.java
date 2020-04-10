@@ -2,37 +2,46 @@ package com.github.devshiro.framr.vaadin.components.dialog;
 
 import com.github.devshiro.framr.vaadin.components.layout.ClassBasedFormLayout;
 import com.github.devshiro.framr.vaadin.components.mapper.StringInputMapper;
+import com.github.devshiro.framr.vaadin.components.mapper.StringMapper;
 import com.github.devshiro.framr.vaadin.components.util.Callback;
-import com.vaadin.flow.component.button.Button;
-import com.vaadin.flow.component.dialog.Dialog;
-import com.vaadin.flow.component.icon.Icon;
-import com.vaadin.flow.component.icon.VaadinIcon;
-import com.vaadin.flow.component.orderedlayout.VerticalLayout;
+import com.vaadin.icons.VaadinIcons;
+import com.vaadin.ui.Button;
+import com.vaadin.ui.VerticalLayout;
+import com.vaadin.ui.Window;
 
-public class ClassBasedInputDialog<T> extends Dialog {
+public class ClassBasedInputDialog<T> extends Window {
 
     private static final String DEFAULT_BTN_TEXT = "Confirm";
 
-    public ClassBasedInputDialog(Class<T> inputClass, String confirmButtonText, Callback<T> onClose) {
-
+    public ClassBasedInputDialog(Class<T> inputClass, Callback<T> onClose) {
+        this(inputClass, DEFAULT_BTN_TEXT, onClose);
     }
 
-    public ClassBasedInputDialog(Class<T> inputClass, String confirmButtonText, VaadinIcon confirmButtonIcon, StringInputMapper<T> mapper, Callback<T> onClose) {
-        VerticalLayout dialogLayout = new VerticalLayout();
+    public ClassBasedInputDialog(Class<T> inputClass, String confirmButtonText, Callback<T> onClose) {
+        this(inputClass, confirmButtonText, null, (klass, string) -> {
+            Object mapped = StringMapper.map(klass, string);
+            return (T) mapped;
+        }, onClose);
+    }
+
+    public ClassBasedInputDialog(Class<T> inputClass, String confirmButtonText, VaadinIcons confirmButtonIcon, StringInputMapper<T> mapper, Callback<T> onClose) {
+        VerticalLayout windowLayout = new VerticalLayout();
         ClassBasedFormLayout formLayout = new ClassBasedFormLayout(inputClass);
         formLayout.setSizeUndefined();
-        dialogLayout.add(formLayout);
+        windowLayout.addComponent(formLayout);
         Button confirmButton = new Button();
-        confirmButton.setText(confirmButtonText);
+        confirmButton.setCaption(confirmButtonText);
         if (confirmButtonIcon != null) {
-            confirmButton.setIcon(new Icon(confirmButtonIcon));
+            confirmButton.setIcon(confirmButtonIcon);
         }
         confirmButton.addClickListener(event -> {
             onClose.callback(formLayout.readForm(mapper));
             close();
         });
-        dialogLayout.add(confirmButton);
-        dialogLayout.setSizeUndefined();
-        add(dialogLayout);
+        windowLayout.addComponent(confirmButton);
+        windowLayout.setSizeUndefined();
+        setContent(windowLayout);
+        center();
     }
+
 }

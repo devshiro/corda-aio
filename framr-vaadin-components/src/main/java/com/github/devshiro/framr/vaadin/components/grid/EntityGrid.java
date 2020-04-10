@@ -1,6 +1,6 @@
 package com.github.devshiro.framr.vaadin.components.grid;
 
-import com.vaadin.flow.component.grid.Grid;
+import com.vaadin.ui.Grid;
 import lombok.Getter;
 
 import java.util.List;

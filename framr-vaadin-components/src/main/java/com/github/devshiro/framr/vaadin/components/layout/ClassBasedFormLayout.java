@@ -2,8 +2,8 @@ package com.github.devshiro.framr.vaadin.components.layout;
 
 import com.github.devshiro.framr.vaadin.components.mapper.StringInputMapper;
 import com.github.devshiro.framr.vaadin.components.mapper.StringMapper;
-import com.vaadin.flow.component.formlayout.FormLayout;
-import com.vaadin.flow.component.textfield.TextField;
+import com.vaadin.ui.FormLayout;
+import com.vaadin.ui.TextField;
 import lombok.Data;
 import lombok.Getter;
 
@@ -71,9 +71,9 @@ public class ClassBasedFormLayout extends FormLayout {
         fields.stream()
                 .forEachOrdered(field -> {
                     TextField textField = new TextField();
-                    textField.setLabel(field.getFieldName());
+                    textField.setCaption(field.getFieldName());
                     field.setValueTextField(textField);
-                    add(textField);
+                    addComponent(textField);
                 });
     }
 
