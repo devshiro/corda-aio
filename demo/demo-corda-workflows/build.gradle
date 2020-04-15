@@ -56,6 +56,9 @@ cordapp {
         licence "TBD"
         versionId 2
     }
+    sealing {
+        enabled false
+    }
 }
 
 sourceSets {

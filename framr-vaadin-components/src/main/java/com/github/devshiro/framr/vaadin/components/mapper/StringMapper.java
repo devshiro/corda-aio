@@ -6,7 +6,7 @@ import lombok.experimental.UtilityClass;
 public class StringMapper {
 
     public static Object map(Class<?> t, String string) {
-        if (string == null || string.isEmpty()) {
+        if (string == null) {
             return null;
         } else if (Integer.class.equals(t) || Integer.TYPE.equals(t)) {
             return Integer.parseInt(string);

@@ -30,4 +30,6 @@ public interface CordappRegistry {
     List<Contract> getAllContracts();
 
     Cordapp findCordapp(String name) throws MissingCordappException;
+
+    Cordapp findCordappFromJar(String jarPath);
 }

@@ -1,6 +1,6 @@
 package com.github.devshiro.framr.core.configuration.modules;
 
-import lombok.Data;
+import com.github.devshiro.framr.core.configuration.FramrApplicationProperties;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Configuration;
 

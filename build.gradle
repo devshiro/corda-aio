@@ -7,3 +7,16 @@ allprojects {
 subprojects {
     version = '0.1'
 }
+
+
+task dockerComposeUp(type: Exec) {
+    workingDir rootDir
+    commandLine 'docker-compose', 'up', '-d'
+}
+
+task dockerComposeDown(type: Exec) {
+    workingDir rootDir
+    commandLine 'docker-compose', 'down'
+}
+
+dockerComposeUp.dependsOn(':framr-dev:buildDockerImage')

@@ -7,6 +7,7 @@ import com.vaadin.ui.TextField;
 import lombok.Data;
 import lombok.Getter;
 
+import java.lang.reflect.Constructor;
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
 import java.util.Arrays;
@@ -39,15 +40,27 @@ public class ClassBasedFormLayout extends FormLayout {
 
     public <T> T readForm(StringInputMapper<T> inputMapper) {
         try {
-            Object createdPojo = pojoClass.newInstance();
+            Constructor constructor = pojoClass.getConstructor();
+            Object createdPojo = constructor.newInstance();
+
+
             for (ClassField field : fields) {
-                String fieldValue = field.getValueTextField().getValue();
+                String fieldValue = field.getValueTextField().getValue() == null ? new String("") : field.getValueTextField().getValue();
                 Method setterMethod = field.getSetter();
                 Class<?> typeClass = setterMethod.getParameterTypes()[0];
-                setterMethod.invoke(createdPojo, inputMapper.map((Class<T>) typeClass, fieldValue));
+                T mappedValue = inputMapper.map((Class<T>) typeClass, fieldValue);
+                setterMethod.invoke(createdPojo, mappedValue);
             }
             return (T) createdPojo;
-        } catch (Exception e) {
+        }
+        catch (InstantiationException ie) {
+            if(ie.getCause().getClass().equals(NoSuchMethodException.class)) {
+                throw new RuntimeException("Missing method " + ie.getCause().getMessage());
+            } else {
+                throw new RuntimeException(ie);
+            }
+        }
+        catch (Exception e) {
             throw new RuntimeException(e);
         }
     }
@@ -56,7 +69,7 @@ public class ClassBasedFormLayout extends FormLayout {
         try {
             Object createdPojo = pojoClass.newInstance();
             for (ClassField field : fields) {
-                String fieldValue = field.getValueTextField().getValue();
+                String fieldValue = field.getValueTextField().getValue() == null ? "" : field.getValueTextField().getValue();
                 Method setterMethod = field.getSetter();
                 Class<?> typeClass = setterMethod.getParameterTypes()[0];
                 setterMethod.invoke(createdPojo, StringMapper.map(typeClass, fieldValue));

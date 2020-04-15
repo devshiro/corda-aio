@@ -1,0 +1,29 @@
+framr:
+    cordapps:
+        - "demo-cordapp-contracts-0.1.jar"
+        - "demo-cordapp-workflows-0.1.jar"
+
+    initConnections:
+        - rpcHost: "localhost"
+          rpcPort: 10003
+          rpcUsername: "user1"
+          rpcPassword: "test"
+          dbUrl: "jdbc:h2:tcp://localhost:11000/node"
+          dbUsername: "sa"
+          dbPassword: ""
+
+    cordappModule:
+      cordappRegistryType: INMEMORY
+  
+    nodeRPCModule:
+      rpcManagerType: INMEMORY
+  
+    nodeDBModule:
+      dbConfigurationManagerType: INMEMORY
+
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"

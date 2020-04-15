@@ -1,6 +1,7 @@
 plugins {
     id 'org.springframework.boot' version "${SPRING_BOOT_VERSION}"
     id 'io.spring.dependency-management' version "${SPRING_DEPENDENCY_MANAGEMENT_VERSION}"
+    id 'com.google.cloud.tools.jib' version "${JIB_VERSION}"
 }
 
 apply plugin: JavaModuleBasePlugin
@@ -19,8 +20,13 @@ dependencies {
     implementation 'com.vaadin:vaadin-spring-boot-starter'
     implementation project(':framr-vaadin-components')
 
-    testImplementation project(':demo:demo-corda-contracts')
-    testImplementation project(':demo:demo-corda-workflows')
+    implementation ('org.springframework.boot:spring-boot-loader')
+    implementation("io.github.classgraph:classgraph:${CLASSGRAPH_VERSION}")
+
+    implementation 'javax.json:javax.json-api:1.1.4'
+
+    implementation 'org.springframework.boot:spring-boot-starter-actuator'
+    implementation 'io.micrometer:micrometer-registry-prometheus'
 }
 
 configurations {
@@ -30,4 +36,14 @@ configurations {
 
 test {
     useJUnitPlatform()
+}
+
+bootJar {
+    manifest {
+        attributes 'Main-Class':'org.springframework.boot.loader.PropertiesLauncher'
+    }
+}
+
+jib {
+
 }

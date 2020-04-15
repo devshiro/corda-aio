@@ -19,6 +19,9 @@ class JavaModuleBasePlugin implements Plugin<Project> {
             repositories {
                 mavenLocal()
                 mavenCentral()
+                maven {
+                    url 'https://software.r3.com/artifactory/corda-dependencies/'
+                }
             }
 
             publishing {

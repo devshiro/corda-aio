@@ -15,14 +15,14 @@ public class CordappLoaderTest implements WithAssertions {
     @Test
     public void checkCordappLoaderContracts() {
         ClasspathCordappLoader loader = ClasspathCordappLoader.getInstance();
-        Cordapp cordapp = loader.load("*cordapp-contracts*.jar");
+        Cordapp cordapp = loader.loadFromClasspath("*cordapp-contracts*.jar");
         assertThat(cordapp.getType()).isEqualTo(CordappType.CONTRACT);
     }
 
     @Test
     public void checkCordappLoaderWorkflows() {
         ClasspathCordappLoader loader = ClasspathCordappLoader.getInstance();
-        Cordapp cordapp = loader.load("demo-cordapp-workflows-*.jar");
+        Cordapp cordapp = loader.loadFromClasspath("demo-cordapp-workflows-*.jar");
         assertThat(cordapp).isNotNull();
         assertThat(cordapp.getType()).isEqualTo(CordappType.WORKFLOW);
         WorkflowCordapp workflowCordapp = (WorkflowCordapp) cordapp;

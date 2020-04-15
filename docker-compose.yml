@@ -1,0 +1,29 @@
+version: "3.7"
+services:
+  framr-core:
+    image: "devshiro/framr-core:latest"
+    ports:
+      - "8080:8080"
+    container_name: framr-core
+
+  corda-node-a:
+     image: "devshiro/corda-node-a:latest"
+     ports:
+       - "10002:10002"
+       - "10003:10003"
+       - "11000:11000"
+     container_name: corda-node-a
+
+  prometheus:
+    image: "prom/prometheus"
+    ports:
+      - "9090:9090"
+    volumes:
+    - ./prometheus.yml:/etc/prometheus/prometheus.yml
+    container_name: prometheus
+
+  grafana:
+    image: grafana/grafana:6.7.2
+    ports:
+      - "3000:3000"
+    container_name: grafana

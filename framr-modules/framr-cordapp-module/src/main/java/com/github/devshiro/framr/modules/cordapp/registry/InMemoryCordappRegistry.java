@@ -8,10 +8,9 @@ import com.github.devshiro.framr.modules.common.corda.cordapp.*;
 import com.github.devshiro.framr.modules.cordapp.exception.MissingCordappException;
 import com.github.devshiro.framr.modules.cordapp.loader.ClasspathCordappLoader;
 import com.google.common.collect.ImmutableList;
-import lombok.val;
+import org.checkerframework.checker.nullness.Opt;
 
 import java.util.*;
-import java.util.stream.Collectors;
 
 public class InMemoryCordappRegistry implements CordappRegistry {
 
@@ -116,7 +115,26 @@ public class InMemoryCordappRegistry implements CordappRegistry {
         }
 
         // Try loading from classpath
-        Cordapp cordapp = classpathCordappLoader.load(name);
+        Cordapp cordapp = classpathCordappLoader.loadFromClasspath(name);
+        if (!cordapps.containsValue(cordapp)) {
+            cordapps.put(UUID.randomUUID(), cordapp);
+        }
+        return cordapp;
+    }
+
+    @Override
+    public Cordapp findCordappFromJar(String jarPath) {
+        String[] arr = jarPath.split("/");
+        String cordappName = arr[arr.length - 1];
+        Optional<Cordapp> maybeCordapp = cordapps.values().stream()
+                .filter(cordapp -> cordapp.getJarName().matches(cordappName))
+                .findFirst();
+        if (maybeCordapp.isPresent()) {
+            return maybeCordapp.get();
+        }
+
+        Cordapp cordapp = classpathCordappLoader.loadFromClasspath(jarPath);
+        Objects.requireNonNull(cordapp, "Jar " + jarPath + " cannot be loaded.");
         if (!cordapps.containsValue(cordapp)) {
             cordapps.put(UUID.randomUUID(), cordapp);
         }

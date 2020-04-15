@@ -1,6 +1,5 @@
 package com.github.devshiro.framr.core.configuration;
 
-import com.github.devshiro.framr.core.configuration.modules.FramrApplicationProperties;
 import com.github.devshiro.framr.modules.cordapp.FramrCordappModule;
 import com.github.devshiro.framr.modules.nodedb.FramrNodeDBModule;
 import com.github.devshiro.framr.modules.noderpc.FramrNodeRPCModule;

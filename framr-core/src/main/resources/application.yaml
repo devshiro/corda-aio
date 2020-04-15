@@ -1,4 +1,8 @@
 framr:
+  cordapps:
+
+  initConnections:
+
   cordappModule:
     cordappRegistryType: INMEMORY
 
@@ -7,3 +11,10 @@ framr:
 
   nodeDBModule:
     dbConfigurationManagerType: INMEMORY
+
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"

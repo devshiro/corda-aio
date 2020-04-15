@@ -46,9 +46,13 @@ cordapp {
         licence "TBD"
         versionId 1
     }
+    sealing {
+        enabled false
+    }
 }
 
 dependencies {
     cordaCompile "net.corda:corda-core:${CORDA_VERSION}"
+    compile("com.google.guava:guava:${GUAVA_VERSION}")
     compile project(":framr-annotations")
 }

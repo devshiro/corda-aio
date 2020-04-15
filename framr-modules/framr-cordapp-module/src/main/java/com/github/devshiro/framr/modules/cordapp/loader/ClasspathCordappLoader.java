@@ -15,17 +15,16 @@ import io.github.classgraph.ClassGraph;
 import io.github.classgraph.ClassInfo;
 import io.github.classgraph.ClassInfoList;
 import io.github.classgraph.ScanResult;
+import lombok.NonNull;
+import lombok.extern.slf4j.Slf4j;
 
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
-import java.util.jar.Attributes;
-import java.util.jar.JarInputStream;
-import java.util.jar.Manifest;
+import java.net.URL;
+import java.net.URLClassLoader;
+import java.util.*;
+import java.util.jar.*;
 
 public class ClasspathCordappLoader extends LoaderBase {
 
@@ -42,13 +41,17 @@ public class ClasspathCordappLoader extends LoaderBase {
         return _instance;
     }
 
-
     @Override
-    public Cordapp load(String cordappName) {
+    public Cordapp loadFromClasspath(String cordappName) {
+        return load(ClassLoader.getSystemClassLoader(), cordappName);
+    }
+
+    private Cordapp load(ClassLoader cl, String jarName) {
         ClassGraph classGraph = new ClassGraph()
                 .enableClassInfo()
                 .enableAnnotationInfo()
-                .whitelistJars(cordappName);
+                .addClassLoader(cl)
+                .whitelistJars(jarName);
         ScanResult cordappScan = classGraph.scan();
         ClassInfoList flowClassInfos = cordappScan.getClassesWithAnnotation(FramrStartableFlow.class.getName());
         ClassInfoList entityClassInfos = cordappScan.getClassesWithAnnotation(FramrEntity.class.getName());
@@ -66,12 +69,12 @@ public class ClasspathCordappLoader extends LoaderBase {
 
 
         if (cordappJarsFromClassInfos.isEmpty()) {
-            throw new ModuleRuntimeException("No JAR found with name " + cordappName);
+            throw new ModuleRuntimeException("No JAR found with name " + jarName);
         }
 
         //There should be only one file present because of Jar whitelisting
         if (cordappJarsFromClassInfos.size() > 1) {
-            throw new ModuleRuntimeException("Multiple jars found with name " + cordappName + ". Please be more specific");
+            throw new ModuleRuntimeException("Multiple jars found with name " + jarName + ". Please be more specific");
         }
 
         File cordappJar = cordappJarsFromClassInfos.iterator().next();

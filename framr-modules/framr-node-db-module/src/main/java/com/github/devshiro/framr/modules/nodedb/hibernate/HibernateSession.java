@@ -1,10 +1,12 @@
 package com.github.devshiro.framr.modules.nodedb.hibernate;
 
 import com.github.devshiro.framr.modules.nodedb.configuration.NodeConfiguration;
+import com.google.common.collect.ImmutableList;
 import lombok.Builder;
 import lombok.Getter;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
+import org.hibernate.cfg.AvailableSettings;
 import org.hibernate.cfg.Configuration;
 
 import javax.persistence.criteria.CriteriaBuilder;

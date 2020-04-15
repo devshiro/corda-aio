@@ -1,27 +1,24 @@
 package com.github.devshiro.framr.core.ui;
 
-import com.github.devshiro.framr.vaadin.components.dialog.ClassBasedInputDialog;
+import com.github.devshiro.framr.core.manager.NodeManager;
+import com.github.devshiro.framr.core.ui.component.FramrNodeTabbar;
+import com.github.devshiro.framr.modules.cordapp.FramrCordappModule;
+import com.github.devshiro.framr.modules.nodedb.FramrNodeDBModule;
+import com.github.devshiro.framr.modules.noderpc.FramrNodeRPCModule;
 import com.vaadin.server.VaadinRequest;
 import com.vaadin.spring.annotation.SpringUI;
-import com.vaadin.ui.Button;
-import com.vaadin.ui.TextField;
 import com.vaadin.ui.UI;
-import com.vaadin.ui.VerticalLayout;
-import lombok.Data;
+import org.springframework.beans.factory.annotation.Autowired;
 
 @SpringUI
 public class MainUI extends UI {
 
-    @Data
-    public class ExampleClass {
-        private String asd1;
-        private String asd2;
-        private String url;
-    }
+    @Autowired
+    private NodeManager nodeManager;
 
     @Override
     protected void init(VaadinRequest request) {
-        ClassBasedInputDialog<ExampleClass> dialog = new ClassBasedInputDialog<>(ExampleClass.class, exampleClass -> {});
-        addWindow(dialog);
+        setContent(new FramrNodeTabbar(nodeManager));
     }
+
 }
