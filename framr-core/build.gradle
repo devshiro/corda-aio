@@ -24,6 +24,7 @@ dependencies {
     implementation("io.github.classgraph:classgraph:${CLASSGRAPH_VERSION}")
 
     implementation 'javax.json:javax.json-api:1.1.4'
+    implementation 'org.postgresql:postgresql:42.2.12'
 
     implementation 'org.springframework.boot:spring-boot-starter-actuator'
     implementation 'io.micrometer:micrometer-registry-prometheus'

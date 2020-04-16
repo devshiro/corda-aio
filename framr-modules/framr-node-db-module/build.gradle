@@ -5,6 +5,7 @@ dependencies {
     implementation project(':framr-modules:framr-cordapp-module')
     implementation("com.google.guava:guava:${GUAVA_VERSION}")
     implementation('org.hibernate:hibernate-core:5.4.11.Final')
+    implementation 'net.corda:corda:4.4'
 
     runtime("com.h2database:h2:${H2_VERSION}")
 

@@ -9,6 +9,11 @@ task downloadNetworkBootstrapperTool(type: Download) {
     dest buildDir
 }
 
+task downloadPostgreDriver(type: Download) {
+    src "https://jdbc.postgresql.org/download/postgresql-42.2.12.jar"
+    dest buildDir
+}
+
 task copyCordapps(type: Copy) {
     from "${rootDir}/demo/demo-corda-contracts/build/libs/demo-cordapp-contracts-0.1.jar"
     from "${rootDir}/demo/demo-corda-workflows/build/libs/demo-cordapp-workflows-0.1.jar"
@@ -60,7 +65,7 @@ task buildDockerImage(type: Exec) {
     commandLine 'docker', 'build', '-t', 'devshiro/framr-core', '.'
 }
 
-task setupCore() {
+task prepareCore() {
 }
 
 copyCordapps.dependsOn(":demo:demo-corda-contracts:build")
@@ -69,6 +74,7 @@ copyCordapps.dependsOn(":demo:demo-corda-workflows:build")
 prepareNetwork.dependsOn copyCordapps
 prepareNetwork.dependsOn copyNodeConfs
 prepareNetwork.dependsOn downloadNetworkBootstrapperTool
+prepareNetwork.dependsOn downloadPostgreDriver
 
 buildPartyADockerImage.dependsOn copyNodeDockerfile
 
@@ -76,7 +82,7 @@ bootstrapNetwork.dependsOn prepareNetwork
 
 copyCoreJar.dependsOn(":framr-core:build")
 
-setupCore.dependsOn copyCoreJar
-setupCore.dependsOn copyCoreConf
-setupCore.dependsOn copyCordappsForCore
-buildDockerImage.dependsOn setupCore
+prepareCore.dependsOn copyCoreJar
+prepareCore.dependsOn copyCoreConf
+prepareCore.dependsOn copyCordappsForCore
+buildDockerImage.dependsOn prepareCore

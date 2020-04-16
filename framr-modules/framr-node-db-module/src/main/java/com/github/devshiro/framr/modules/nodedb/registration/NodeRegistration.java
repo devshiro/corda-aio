@@ -11,7 +11,7 @@ import java.util.List;
 @Builder
 public class NodeRegistration {
     private final String friendlyName;
-    private final Class<? extends Driver> driverClass;
+    private final String driverClass;
     private final String url;
     private final String username;
     private final String password;

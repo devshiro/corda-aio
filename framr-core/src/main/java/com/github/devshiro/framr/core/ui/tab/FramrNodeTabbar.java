@@ -1,9 +1,11 @@
-package com.github.devshiro.framr.core.ui.component;
+package com.github.devshiro.framr.core.ui.tab;
 
 import com.github.devshiro.framr.core.manager.NodeManager;
 import com.github.devshiro.framr.core.manager.NodeManagerProxy;
+import com.github.devshiro.framr.vaadin.components.util.Closeable;
+import com.github.devshiro.framr.vaadin.components.util.Refreshable;
 import com.vaadin.icons.VaadinIcons;
-import com.vaadin.ui.Notification;
+import com.vaadin.ui.Component;
 import com.vaadin.ui.TabSheet;
 
 import java.util.Optional;
@@ -17,6 +19,29 @@ public class FramrNodeTabbar extends TabSheet {
         this.nodeManager = nodeManager;
         newNodeTab = newNodeTab(nodeManager);
         prefetch();
+        setCloseHandler(new CloseHandler() {
+            @Override
+            public void onTabClose(TabSheet tabsheet, Component tabContent) {
+                Tab tab = tabsheet.getTab(tabContent);
+                if (Closeable.class.isAssignableFrom(tab.getClass())) {
+                    Closeable closeableTab = (Closeable) tab;
+                    closeableTab.onClose();
+                }
+                tabsheet.removeTab(tab);
+            }
+        });
+
+        addSelectedTabChangeListener(new SelectedTabChangeListener() {
+            @Override
+            public void selectedTabChange(SelectedTabChangeEvent event) {
+                TabSheet tabSheet = event.getTabSheet();
+                Component tab = tabSheet.getSelectedTab();
+                if (Refreshable.class.isAssignableFrom(tab.getClass())) {
+                    Refreshable refreshableTab = (Refreshable) tab;
+                    refreshableTab.refresh();
+                }
+            }
+        });
     }
 
     private void prefetch() {

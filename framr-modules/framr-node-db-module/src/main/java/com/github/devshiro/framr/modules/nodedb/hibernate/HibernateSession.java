@@ -37,6 +37,12 @@ public class HibernateSession {
         session = sessionFactory.openSession();
     }
 
+    public <T> List<T> findAllConsumed(Class<T> entityClass) {
+        checkSession();
+        CriteriaQuery<T> query = criteriaBuilder.createQuery(entityClass);
+        return null;
+    }
+
     public <T> List<T> findAll(Class<T> entityClass) {
         checkSession();
         CriteriaQuery<T> query = criteriaBuilder.createQuery(entityClass);
@@ -67,7 +73,7 @@ public class HibernateSession {
 
     private Configuration buildHibernateCfg(NodeConfiguration configuration) {
         Configuration config = new Configuration();
-        config.setProperty("hibernate.connection.driver_class", configuration.getDriverClass().getCanonicalName());
+        config.setProperty("hibernate.connection.driver_class", configuration.getDriverClass());
         config.setProperty("hibernate.connection.url", configuration.getUrl());
         config.setProperty("hibernate.connection.username", configuration.getUsername());
         config.setProperty("hibernate.connection.password", configuration.getPassword());

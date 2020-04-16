@@ -14,7 +14,7 @@ public class NodeConfigurationTest implements WithAssertions {
     @Test
     public void testNodeConfiguration() {
         NodeConfiguration testConfiguration = NodeConfiguration.builder()
-                .driverClass(org.h2.Driver.class)
+                .driverClass("org.h2.Driver.class")
                 .dialect("org.hibernate.dialect.H2Dialect")
                 .entityClasses(ImmutableList.of(ExampleEntity.class))
                 .url("jdbc:h2:persistence")
@@ -22,6 +22,6 @@ public class NodeConfigurationTest implements WithAssertions {
                 .password("")
                 .build();
 
-        assertThat(testConfiguration.getDriverClass().getCanonicalName()).isEqualTo("org.h2.Driver");
+        assertThat(testConfiguration.getDriverClass()).isEqualTo("org.h2.Driver");
     }
 }

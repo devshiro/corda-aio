@@ -9,13 +9,7 @@ bin
 .idea/
 
 # Vaadin stuff
-package.json
-package-lock.json
-webpack.generated.js
-webpack.config.js
-node_modules
 target
-node
 
 # Logs
 logs

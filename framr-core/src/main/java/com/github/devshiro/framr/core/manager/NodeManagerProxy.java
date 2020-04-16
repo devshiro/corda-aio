@@ -17,6 +17,7 @@ import lombok.extern.slf4j.Slf4j;
 
 import java.util.List;
 import java.util.UUID;
+import java.util.concurrent.CompletableFuture;
 
 @Builder
 @Slf4j
@@ -59,9 +60,9 @@ public class NodeManagerProxy {
         return session.findAll(entityClass);
     }
 
-    public void startFlow(Flow flow, Object flowInput) {
+    public CompletableFuture<?> startFlow(Flow flow, Object flowInput) {
         FlowInvocation flowInvocation = new FlowInvocation(flow, flowInput);
-        nodeRPCModule.startFlow(nodeRpcId, flowInvocation);
+        return nodeRPCModule.startFlow(nodeRpcId, flowInvocation);
     }
 
     public void close() {

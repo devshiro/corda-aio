@@ -9,7 +9,7 @@ import java.util.List;
 @Data
 @Builder
 public class NodeConfiguration {
-    private Class<? extends Driver> driverClass;
+    private String driverClass;
     private String url;
     private String username;
     private String password;

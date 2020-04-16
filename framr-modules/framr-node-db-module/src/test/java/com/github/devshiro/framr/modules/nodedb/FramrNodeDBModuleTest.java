@@ -29,7 +29,7 @@ public class FramrNodeDBModuleTest implements WithAssertions {
                 .friendlyName("File DB")
                 .url(url)
                 .dialect("org.hibernate.dialect.H2Dialect")
-                .driverClass(org.h2.Driver.class)
+                .driverClass("org.h2.Driver.class")
                 .entityClasses(ImmutableList.of(ExampleEntity.class))
                 .username(user)
                 .password(password)

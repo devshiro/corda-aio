@@ -4,13 +4,15 @@ framr:
         - "demo-cordapp-workflows-0.1.jar"
 
     initConnections:
-        - rpcHost: "localhost"
+        - rpcHost: "corda-node-a"
           rpcPort: 10003
           rpcUsername: "user1"
           rpcPassword: "test"
-          dbUrl: "jdbc:h2:tcp://localhost:11000/node"
-          dbUsername: "sa"
-          dbPassword: ""
+          dbUrl: "jdbc:postgresql://database/node"
+          dbDriver: "org.postgresql.Driver"
+          dialect: "org.hibernate.dialect.PostgreSQLDialect"
+          dbUsername: "postgres"
+          dbPassword: "password"
 
     cordappModule:
       cordappRegistryType: INMEMORY

@@ -7,9 +7,11 @@ import com.github.devshiro.framr.modules.noderpc.flow.FlowInvocation;
 import com.github.devshiro.framr.modules.noderpc.manager.NodeRPCManager;
 import net.corda.core.flows.FlowLogic;
 import net.corda.core.messaging.CordaRPCOps;
+import net.corda.core.messaging.FlowHandle;
 
 import java.util.Optional;
 import java.util.UUID;
+import java.util.concurrent.CompletableFuture;
 
 public class FramrNodeRPCModule extends FramrModuleBase {
 
@@ -54,7 +56,7 @@ public class FramrNodeRPCModule extends FramrModuleBase {
         nodeRPCManager.deleteNode(nodeId);
     }
 
-    public void startFlow(UUID nodeId, FlowInvocation flowInvocation) {
+    public CompletableFuture<?> startFlow(UUID nodeId, FlowInvocation flowInvocation) {
         Optional<NodeRPC> nodeRPC = nodeRPCManager.getNode(nodeId);
         if (!nodeRPC.isPresent()) {
             throw new IllegalArgumentException("No node found with id " + nodeId);
@@ -64,6 +66,6 @@ public class FramrNodeRPCModule extends FramrModuleBase {
             throw new IllegalStateException("Connection to node " + nodeRPC.get().getHost() + nodeRPC.get().getPort() + " haven't been established yet");
         }
         Class<? extends FlowLogic<?>> flowClass = (Class<? extends FlowLogic<?>>) flowInvocation.getFlow().getKlass();
-        ops.get().startFlowDynamic(flowClass, flowInvocation.getArg());
+        return ops.get().startFlowDynamic(flowClass, flowInvocation.getArg()).getReturnValue().toCompletableFuture();
     }
 }

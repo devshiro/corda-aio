@@ -1,6 +1,7 @@
-package com.github.devshiro.framr.core.ui.component;
+package com.github.devshiro.framr.core.ui.tab;
 
 import com.github.devshiro.framr.core.manager.NodeManager;
+import com.github.devshiro.framr.core.ui.component.LoadedCordappsBar;
 import com.github.devshiro.framr.vaadin.components.dialog.ClassBasedInputDialog;
 import com.github.devshiro.framr.vaadin.components.util.Callback;
 import com.vaadin.ui.Button;
@@ -43,6 +44,8 @@ public class NewNodeLayout extends VerticalLayout {
         private String rpcUsername;
         private String rpcPassword;
         private String dbUrl;
+        private String dbDriver;
+        private String dialect;
         private String dbUsername;
         private String dbPassword;
     }

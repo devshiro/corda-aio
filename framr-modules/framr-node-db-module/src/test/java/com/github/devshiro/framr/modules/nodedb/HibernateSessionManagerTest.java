@@ -24,7 +24,7 @@ public class HibernateSessionManagerTest implements WithAssertions {
     @BeforeAll
     public void setup() {
         NodeConfiguration configuration = NodeConfiguration.builder()
-                .driverClass(org.h2.Driver.class)
+                .driverClass("org.h2.Driver.class")
                 .dialect("org.hibernate.dialect.H2Dialect")
                 .url("jdbc:h2:C:/Users/xmark/Documents/Projects/framr/framr-modules/framr-node-db-module/src/test/resources/persistence")
                 .username("sa")

@@ -5,10 +5,8 @@ import com.github.devshiro.framr.core.configuration.FramrCoreApplicationConfigur
 import com.github.devshiro.framr.core.configuration.modules.FramrCoreModuleConfiguration;
 import com.github.devshiro.framr.core.manager.NodeManager;
 import com.github.devshiro.framr.core.manager.NodeManagerProxy;
-import com.github.devshiro.framr.core.ui.component.NewNodeLayout;
+import com.github.devshiro.framr.core.ui.tab.NewNodeLayout;
 import com.github.devshiro.framr.modules.cordapp.FramrCordappModule;
-import com.github.devshiro.framr.modules.nodedb.FramrNodeDBModule;
-import com.github.devshiro.framr.modules.noderpc.FramrNodeRPCModule;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
@@ -26,13 +24,7 @@ import java.util.Optional;
 public class FramrCoreApplication implements CommandLineRunner {
 
     @Autowired
-    private FramrNodeRPCModule nodeRPCModule;
-
-    @Autowired
     private FramrCordappModule cordappModule;
-
-    @Autowired
-    private FramrNodeDBModule nodeDBModule;
 
     @Autowired
     private FramrApplicationProperties properties;
@@ -56,12 +48,28 @@ public class FramrCoreApplication implements CommandLineRunner {
 
         log.info("Preconnect...");
         for (NewNodeLayout.NodeConnectionDetails initConnection : properties.getInitConnections()) {
-            Optional<NodeManagerProxy> proxy = nodeManager.register(initConnection);
-            if(proxy.isPresent()) {
-                log.info("Connection created with {}:{}", initConnection.getRpcHost(), initConnection.getRpcPort());
-            } else {
-                log.warn("Failed to connect to {}:{}", initConnection.getRpcHost(), initConnection.getRpcPort());
+            boolean connected = false;
+            int retryCount = 5;
+            long delayMs = 15000L;
+            int tries = 0;
+            while (!connected && tries < retryCount) {
+                tries++;
+                log.info("Trying to estabilish connection ({}/{})", tries, retryCount);
+                try {
+                    Optional<NodeManagerProxy> proxy = nodeManager.register(initConnection);
+                    if (proxy.isPresent()) {
+                        connected = true;
+                        log.info("Connection created with {}:{}", initConnection.getRpcHost(), initConnection.getRpcPort());
+                    } else {
+                        log.warn("Failed to connect to {}:{}", initConnection.getRpcHost(), initConnection.getRpcPort());
+                    }
+                } catch (Exception e) {
+                    log.warn("Exception during preconnect ({}/{}): {}", tries, retryCount, e.getMessage());
+                    Thread.sleep(delayMs);
+                }
             }
+
         }
+
     }
 }
